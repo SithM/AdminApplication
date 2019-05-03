@@ -37,7 +37,7 @@ const getValue = obj =>
     .map(key => obj[key])
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
-const status = ['关闭', '运行中', '已上线', '异常'];
+const status = ['No process', 'Pending', 'Processing', 'Processed'];
 
 const CreateForm = Form.create()(props => {
   const { modalVisible, form, handleAdd, handleModalVisible } = props;
@@ -51,12 +51,12 @@ const CreateForm = Form.create()(props => {
   return (
     <Modal
       destroyOnClose
-      title="新建规则"
+      title="Add new Order"
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="Customer name">
         {form.getFieldDecorator('desc', {
           rules: [{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }],
         })(<Input placeholder="请输入" />)}
@@ -68,8 +68,8 @@ const CreateForm = Form.create()(props => {
 @Form.create()
 class UpdateForm extends PureComponent {
   static defaultProps = {
-    handleUpdate: () => {},
-    handleUpdateModalVisible: () => {},
+    handleUpdate: () => { },
+    handleUpdateModalVisible: () => { },
     values: {},
   };
 
@@ -131,143 +131,69 @@ class UpdateForm extends PureComponent {
     });
   };
 
-  renderContent = (currentStep, formVals) => {
+  renderContent = (formVals) => {
     const { form } = this.props;
-    if (currentStep === 1) {
-      return [
-        <FormItem key="target" {...this.formLayout} label="监控对象">
-          {form.getFieldDecorator('target', {
-            initialValue: formVals.target,
-          })(
-            <Select style={{ width: '100%' }}>
-              <Option value="0">表一</Option>
-              <Option value="1">表二</Option>
-            </Select>
-          )}
-        </FormItem>,
-        <FormItem key="template" {...this.formLayout} label="规则模板">
-          {form.getFieldDecorator('template', {
-            initialValue: formVals.template,
-          })(
-            <Select style={{ width: '100%' }}>
-              <Option value="0">规则模板一</Option>
-              <Option value="1">规则模板二</Option>
-            </Select>
-          )}
-        </FormItem>,
-        <FormItem key="type" {...this.formLayout} label="规则类型">
-          {form.getFieldDecorator('type', {
-            initialValue: formVals.type,
-          })(
-            <RadioGroup>
-              <Radio value="0">强</Radio>
-              <Radio value="1">弱</Radio>
-            </RadioGroup>
-          )}
-        </FormItem>,
-      ];
-    }
-    if (currentStep === 2) {
-      return [
-        <FormItem key="time" {...this.formLayout} label="开始时间">
-          {form.getFieldDecorator('time', {
-            rules: [{ required: true, message: '请选择开始时间！' }],
-          })(
-            <DatePicker
-              style={{ width: '100%' }}
-              showTime
-              format="YYYY-MM-DD HH:mm:ss"
-              placeholder="选择开始时间"
-            />
-          )}
-        </FormItem>,
-        <FormItem key="frequency" {...this.formLayout} label="调度周期">
-          {form.getFieldDecorator('frequency', {
-            initialValue: formVals.frequency,
-          })(
-            <Select style={{ width: '100%' }}>
-              <Option value="month">月</Option>
-              <Option value="week">周</Option>
-            </Select>
-          )}
-        </FormItem>,
-      ];
-    }
     return [
-      <FormItem key="name" {...this.formLayout} label="规则名称">
+      <FormItem key="name" {...this.formLayout} label="Search Value">
         {form.getFieldDecorator('name', {
-          rules: [{ required: true, message: '请输入规则名称！' }],
+          rules: [{ required: true, message: 'Please enter value search！' }],
           initialValue: formVals.name,
-        })(<Input placeholder="请输入" />)}
+        })(<Input placeholder="Search anything..." />)}
       </FormItem>,
-      <FormItem key="desc" {...this.formLayout} label="规则描述">
+      <FormItem key="desc" {...this.formLayout} label="Customer Information">
         {form.getFieldDecorator('desc', {
-          rules: [{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }],
+          rules: [{ required: true, message: 'Customer information must not be blank！', min: 10 }],
           initialValue: formVals.desc,
-        })(<TextArea rows={4} placeholder="请输入至少五个字符" />)}
+        })(<TextArea rows={4} placeholder="Customer information must not be blank!" />)}
+      </FormItem>,
+      <FormItem key="status" {...this.formLayout} label="Status">
+        {form.getFieldDecorator('status', {
+          rules: [{ required: true, message: 'Status not null！' }],
+          initialValue: formVals.status,
+        })(<Select placeholder="Status..." style={{ width: '100%' }}>
+          <Option value="0">No Process</Option>
+          <Option value="1">Pending</Option>
+          <Option value="2">Processing</Option>
+          <Option value="3">Processed</Option>
+        </Select>
+        )}
       </FormItem>,
     ];
   };
 
-  renderFooter = currentStep => {
+  renderFooter = () => {
     const { handleUpdateModalVisible, values } = this.props;
-    if (currentStep === 1) {
-      return [
-        <Button key="back" style={{ float: 'left' }} onClick={this.backward}>
-          上一步
-        </Button>,
-        <Button key="cancel" onClick={() => handleUpdateModalVisible(false, values)}>
-          取消
-        </Button>,
-        <Button key="forward" type="primary" onClick={() => this.handleNext(currentStep)}>
-          下一步
-        </Button>,
-      ];
-    }
-    if (currentStep === 2) {
-      return [
-        <Button key="back" style={{ float: 'left' }} onClick={this.backward}>
-          上一步
-        </Button>,
-        <Button key="cancel" onClick={() => handleUpdateModalVisible(false, values)}>
-          取消
-        </Button>,
-        <Button key="submit" type="primary" onClick={() => this.handleNext(currentStep)}>
-          完成
-        </Button>,
-      ];
-    }
     return [
       <Button key="cancel" onClick={() => handleUpdateModalVisible(false, values)}>
-        取消
+        Cancel
       </Button>,
-      <Button key="forward" type="primary" onClick={() => this.handleNext(currentStep)}>
-        下一步
+      <Button key="submit" type="success">
+        Save
       </Button>,
     ];
   };
 
   render() {
     const { updateModalVisible, handleUpdateModalVisible, values } = this.props;
-    const { currentStep, formVals } = this.state;
+    const { formVals } = this.state;
 
     return (
       <Modal
         width={640}
         bodyStyle={{ padding: '32px 40px 48px' }}
         destroyOnClose
-        title="规则配置"
+        title="Edit Order"
         visible={updateModalVisible}
-        footer={this.renderFooter(currentStep)}
+        footer={this.renderFooter()}
         onCancel={() => handleUpdateModalVisible(false, values)}
         afterClose={() => handleUpdateModalVisible()}
       >
-        <Steps style={{ marginBottom: 28 }} size="small" current={currentStep}>
-          <Step title="基本信息" />
-          <Step title="配置规则属性" />
-          <Step title="设定调度周期" />
-        </Steps>
-        {this.renderContent(currentStep, formVals)}
+        {/* <Steps style={{ marginBottom: 28 }} size="small" current={currentStep}>
+          <Step title="Basic Information" />
+          <Step title="Config" />
+          <Step title="Set the scheduling period" />
+        </Steps> */}
+        {this.renderContent(formVals)}
       </Modal>
     );
   }
@@ -291,24 +217,24 @@ class TableList extends PureComponent {
 
   columns = [
     {
-      title: '规则名称',
+      title: 'Trade Code',
       dataIndex: 'name',
       render: text => <a onClick={() => this.previewItem(text)}>{text}</a>,
     },
     {
-      title: '描述',
+      title: 'Customer Name',
       dataIndex: 'desc',
     },
     {
-      title: '服务调用次数',
+      title: 'Price',
       dataIndex: 'callNo',
       sorter: true,
-      render: val => `${val} 万`,
+      render: val => `${val} $`,
       // mark to display a total number
       needTotal: true,
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       filters: [
         {
@@ -333,18 +259,18 @@ class TableList extends PureComponent {
       },
     },
     {
-      title: '上次调度时间',
+      title: 'Order Date',
       dataIndex: 'updatedAt',
       sorter: true,
       render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
     },
     {
-      title: '操作',
+      title: 'Action',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => this.handleUpdateModalVisible(true, record)}>配置</a>
+          <a onClick={() => this.handleUpdateModalVisible(true, record)}>Edit</a>
           <Divider type="vertical" />
-          <a href="">订阅警报</a>
+          <a href="">Delete</a>
         </Fragment>
       ),
     },
@@ -513,16 +439,18 @@ class TableList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="规则名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+            <FormItem label="Search Value">
+              {getFieldDecorator('name')(<Input placeholder="Search any things..." />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="使用状态">
+            <FormItem label="Filter By Status">
               {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+                <Select placeholder="Status..." style={{ width: '100%' }}>
+                  <Option value="0">No Process</Option>
+                  <Option value="1">Pending</Option>
+                  <Option value="2">Processing</Option>
+                  <Option value="3">Processed</Option>
                 </Select>
               )}
             </FormItem>
@@ -530,13 +458,13 @@ class TableList extends PureComponent {
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
-                查询
+                Search
               </Button>
               <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-                重置
+                Reset
               </Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                展开 <Icon type="down" />
+                More <Icon type="down" />
               </a>
             </span>
           </Col>
@@ -553,65 +481,71 @@ class TableList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="规则名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+            <FormItem label="Search Value">
+              {getFieldDecorator('name')(<Input placeholder="Search any things..." />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="使用状态">
+            <FormItem label="Filter By Status">
               {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+                <Select placeholder="Status..." style={{ width: '100%' }}>
+                  <Option value="0">No Process</Option>
+                  <Option value="1">Pending</Option>
+                  <Option value="2">Processing</Option>
+                  <Option value="3">Processed</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="调用次数">
+            <FormItem label="Search by Price">
               {getFieldDecorator('number')(<InputNumber style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
         </Row>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="更新日期">
+            <FormItem label="Datetime">
               {getFieldDecorator('date')(
-                <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />
+                <DatePicker style={{ width: '100%' }} placeholder="Search by datetime..." />
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="使用状态">
+          {/* <Col md={8} sm={24}>
+            <FormItem label="Filter By Status">
               {getFieldDecorator('status3')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+                <Select placeholder="Status..." style={{ width: '100%' }}>
+                  <Option value="0">No Process</Option>
+                  <Option value="1">Pending</Option>
+                  <Option value="2">Processing</Option>
+                  <Option value="3">Processed</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="使用状态">
+            <FormItem label="Filter By Status">
               {getFieldDecorator('status4')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+                <Select placeholder="Status..." style={{ width: '100%' }}>
+                  <Option value="0">No Process</Option>
+                  <Option value="1">Pending</Option>
+                  <Option value="2">Processing</Option>
+                  <Option value="3">Processed</Option>
                 </Select>
               )}
             </FormItem>
-          </Col>
+          </Col> */}
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <div style={{ marginBottom: 24 }}>
             <Button type="primary" htmlType="submit">
-              查询
+              Search
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-              重置
+              Reset
             </Button>
             <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-              收起 <Icon type="up" />
+              Hide <Icon type="up" />
             </a>
           </div>
         </div>
@@ -646,22 +580,22 @@ class TableList extends PureComponent {
       handleUpdate: this.handleUpdate,
     };
     return (
-      <PageHeaderWrapper title="查询表格">
+      <PageHeaderWrapper title="View Orders">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
-                新建
-              </Button>
+              {/* <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+                Add a Order
+              </Button> */}
               {selectedRows.length > 0 && (
                 <span>
-                  <Button>批量操作</Button>
-                  <Dropdown overlay={menu}>
+                  <Button>Delete the selected items</Button>
+                  {/* <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />
                     </Button>
-                  </Dropdown>
+                  </Dropdown> */}
                 </span>
               )}
             </div>
