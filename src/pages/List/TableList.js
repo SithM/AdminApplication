@@ -150,12 +150,13 @@ class UpdateForm extends PureComponent {
         {form.getFieldDecorator('status', {
           rules: [{ required: true, message: 'Status not null！' }],
           initialValue: formVals.status,
-        })(<Select placeholder="Status..." style={{ width: '100%' }}>
-          <Option value="0">No Process</Option>
-          <Option value="1">Pending</Option>
-          <Option value="2">Processing</Option>
-          <Option value="3">Processed</Option>
-        </Select>
+        })(
+          <Select placeholder="Status..." style={{ width: '100%' }}>
+            <Option value="0">No Process</Option>
+            <Option value="1">Pending</Option>
+            <Option value="2">Processing</Option>
+            <Option value="3">Processed</Option>
+          </Select>
         )}
       </FormItem>,
     ];

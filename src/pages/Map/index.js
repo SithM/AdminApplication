@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
@@ -28,18 +29,18 @@ const MapContainer = props => {
       <Map
         google={props.google}
         style={{ width: '100%', height: '100%' }}
-        className={'map'}
+        className="map"
         zoom={14}
       >
         <Marker
-          title={'The marker`s title will appear as a tooltip.'}
-          name={'SOMA'}
+          title="The marker`s title will appear as a tooltip."
+          name="SOMA"
           position={{ lat: 37.778519, lng: -122.40564 }}
         />
-        <Marker name={'Dolores park'} position={{ lat: 37.759703, lng: -122.428093 }} />
+        <Marker name="Dolores park" position={{ lat: 37.759703, lng: -122.428093 }} />
         <Marker />
         <Marker
-          name={'Your position'}
+          name="Your position"
           position={{ lat: 37.762391, lng: -122.439192 }}
           icon={{
             url: '/path/to/custom_icon.png',

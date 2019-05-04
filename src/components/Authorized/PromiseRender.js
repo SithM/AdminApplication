@@ -1,8 +1,10 @@
-import { Spin } from 'antd';
+import { Spin, Icon } from 'antd';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 // eslint-disable-next-line import/no-cycle
 import { isComponentClass } from './Secured';
+
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 export default class PromiseRender extends React.Component {
   state = {
@@ -60,17 +62,17 @@ export default class PromiseRender extends React.Component {
     return Component ? (
       <Component {...rest} />
     ) : (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          margin: 'auto',
-          paddingTop: 50,
-          textAlign: 'center',
-        }}
-      >
-        <Spin size="large" />
-      </div>
-    );
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            margin: 'auto',
+            paddingTop: 50,
+            textAlign: 'center',
+          }}
+        >
+          <Spin indicator={antIcon} size="large" />
+        </div>
+      );
   }
 }

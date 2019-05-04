@@ -8,6 +8,8 @@ import HeaderSearch from '../HeaderSearch';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
 export default class GlobalHeaderRight extends PureComponent {
   getNoticeData() {
     const { notices = [] } = this.props;
@@ -184,7 +186,7 @@ export default class GlobalHeaderRight extends PureComponent {
             </span>
           </HeaderDropdown>
         ) : (
-          <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
+          <Spin indicator={antIcon} size="small" style={{ marginLeft: 8, marginRight: 8 }} />
         )}
         {/* <SelectLang className={styles.action} /> */}
       </div>

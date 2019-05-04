@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Button, Spin, Card } from 'antd';
+import { Button, Spin, Card, Icon } from 'antd';
 import { connect } from 'dva';
 import styles from './style.less';
+
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
 
 @connect(state => ({
   isloading: state.error.isloading,
@@ -28,7 +31,7 @@ class TriggerException extends PureComponent {
     const { isloading } = this.state;
     return (
       <Card>
-        <Spin spinning={isloading} wrapperClassName={styles.trigger}>
+        <Spin indicator={antIcon} spinning={isloading} wrapperClassName={styles.trigger}>
           <Button type="danger" onClick={() => this.triggerError(401)}>
             触发401
           </Button>

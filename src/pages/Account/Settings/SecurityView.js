@@ -43,7 +43,7 @@ class SecurityView extends Component {
       description: `${formatMessage(
         { id: 'app.settings.security.phone-description' },
         {}
-      )}：138****8293`,
+      )}：+84******808`,
       actions: [
         <a>
           <FormattedMessage id="app.settings.security.modify" defaultMessage="Modify" />
@@ -64,22 +64,13 @@ class SecurityView extends Component {
       description: `${formatMessage(
         { id: 'app.settings.security.email-description' },
         {}
-      )}：ant***sign.com`,
+      )}：bak****te@gmail.com`,
       actions: [
         <a>
           <FormattedMessage id="app.settings.security.modify" defaultMessage="Modify" />
         </a>,
       ],
-    },
-    {
-      title: formatMessage({ id: 'app.settings.security.mfa' }, {}),
-      description: formatMessage({ id: 'app.settings.security.mfa-description' }, {}),
-      actions: [
-        <a>
-          <FormattedMessage id="app.settings.security.bind" defaultMessage="Bind" />
-        </a>,
-      ],
-    },
+    }
   ];
 
   render() {

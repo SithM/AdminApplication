@@ -1,6 +1,5 @@
 module.exports = {
-  navTheme: 'dark', // theme for nav menu
-  primaryColor: '#1890FF', // primary color of ant design
+  navTheme: 'light', // theme for nav menu
   layout: 'sidemenu', // nav menu position: sidemenu or topmenu
   contentWidth: 'Fluid', // layout of content: Fluid or Fixed, only works when layout is topmenu
   fixedHeader: false, // sticky header
@@ -16,4 +15,12 @@ module.exports = {
   // 注意：如果需要图标多色，Iconfont 图标项目里要进行批量去色处理
   // Usage: https://github.com/ant-design/ant-design-pro/pull/3517
   iconfontUrl: '',
+  primaryColor: '#2980b9',
+  successColor: '#27ae60',
+  warningColor: '#f39c12',
+  darkColor: '#2c3e50',
+  lightColor: '#ecf0f1',
+  violetColor: '#8e44ad',
+  dangerColor: '#c0392b',
+  mainColor: '#27ae60'
 };

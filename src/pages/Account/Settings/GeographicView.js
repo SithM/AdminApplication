@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
-import { Select, Spin } from 'antd';
+import { Select, Spin, Icon } from 'antd';
 import { connect } from 'dva';
 import styles from './GeographicView.less';
 
 const { Option } = Select;
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
 
 const nullSlectItem = {
   label: '',
@@ -101,7 +103,7 @@ class GeographicView extends PureComponent {
     const { province, city } = this.conversionObject();
     const { isLoading } = this.props;
     return (
-      <Spin spinning={isLoading} wrapperClassName={styles.row}>
+      <Spin indicator={antIcon} spinning={isLoading} wrapperClassName={styles.row}>
         <Select
           className={styles.item}
           value={province}

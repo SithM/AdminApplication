@@ -65,16 +65,17 @@ export default class BaseMenu extends PureComponent {
                 <span>{name}</span>
               </span>
             ) : (
-              name
-            )
+                name
+              )
           }
           key={item.path}
+
         >
           {this.getNavMenuItems(item.children)}
         </SubMenu>
       );
     }
-    return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
+    return <Menu.Item style={{ height: '50px', lineHeight: '50px', margin: 0 }} key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
   };
 
   /**
@@ -105,8 +106,8 @@ export default class BaseMenu extends PureComponent {
         onClick={
           isMobile
             ? () => {
-                onCollapse(true);
-              }
+              onCollapse(true);
+            }
             : undefined
         }
       >

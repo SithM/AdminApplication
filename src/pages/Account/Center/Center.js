@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
@@ -5,6 +6,9 @@ import router from 'umi/router';
 import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import styles from './Center.less';
+
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
 
 @connect(({ loading, user, project }) => ({
   listLoading: loading.effects['list/fetch'],
@@ -103,7 +107,7 @@ class Center extends PureComponent {
         key: 'articles',
         tab: (
           <span>
-            文章 <span style={{ fontSize: 14 }}>(8)</span>
+            Articles <span style={{ fontSize: 14 }}>(8)</span>
           </span>
         ),
       },
@@ -111,7 +115,7 @@ class Center extends PureComponent {
         key: 'applications',
         tab: (
           <span>
-            应用 <span style={{ fontSize: 14 }}>(8)</span>
+            Applications <span style={{ fontSize: 14 }}>(8)</span>
           </span>
         ),
       },
@@ -119,7 +123,7 @@ class Center extends PureComponent {
         key: 'projects',
         tab: (
           <span>
-            项目 <span style={{ fontSize: 14 }}>(8)</span>
+            Project <span style={{ fontSize: 14 }}>(8)</span>
           </span>
         ),
       },
@@ -128,7 +132,7 @@ class Center extends PureComponent {
     return (
       <GridContent className={styles.userCenter}>
         <Row gutter={24}>
-          <Col lg={7} md={24}>
+          <Col lg={24} md={24}>
             <Card bordered={false} style={{ marginBottom: 24 }} loading={currentUserLoading}>
               {currentUser && Object.keys(currentUser).length ? (
                 <div>
@@ -182,7 +186,7 @@ class Center extends PureComponent {
                   <Divider style={{ marginTop: 16 }} dashed />
                   <div className={styles.team}>
                     <div className={styles.teamTitle}>Member Team</div>
-                    <Spin spinning={projectLoading}>
+                    <Spin spinning={projectLoading} indicator={antIcon}>
                       <Row gutter={36}>
                         {notice.map(item => (
                           <Col key={item.id} lg={24} xl={12}>
@@ -197,11 +201,11 @@ class Center extends PureComponent {
                   </div>
                 </div>
               ) : (
-                'loading...'
-              )}
+                  'loading...'
+                )}
             </Card>
           </Col>
-          <Col lg={17} md={24}>
+          {/* <Col lg={17} md={24}>
             <Card
               className={styles.tabsCard}
               bordered={false}
@@ -212,7 +216,7 @@ class Center extends PureComponent {
             >
               {children}
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </GridContent>
     );

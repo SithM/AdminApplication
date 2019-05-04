@@ -6,17 +6,20 @@ import HeaderDropdown from '../HeaderDropdown';
 import List from './NoticeList';
 import styles from './index.less';
 
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
+
 const { TabPane } = Tabs;
 
 export default class NoticeIcon extends PureComponent {
   static Tab = TabPane;
 
   static defaultProps = {
-    onItemClick: () => {},
-    onPopupVisibleChange: () => {},
-    onTabChange: () => {},
-    onClear: () => {},
-    onViewMore: () => {},
+    onItemClick: () => { },
+    onPopupVisibleChange: () => { },
+    onTabChange: () => { },
+    onClear: () => { },
+    onViewMore: () => { },
     loading: false,
     clearClose: false,
     locale: {
@@ -88,7 +91,7 @@ export default class NoticeIcon extends PureComponent {
     });
     return (
       <Fragment>
-        <Spin spinning={loading} delay={0}>
+        <Spin spinning={loading} delay={0} indicator={antIcon}>
           <Tabs className={styles.tabs} onChange={this.onTabChange}>
             {panes}
           </Tabs>

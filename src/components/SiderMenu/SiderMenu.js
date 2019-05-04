@@ -76,10 +76,13 @@ export default class SiderMenu extends PureComponent {
         width={256}
         theme={theme}
         className={siderClassName}
+        style={{
+          overflow: 'auto', height: '100vh', position: 'sticky', top: 0,
+        }}
       >
         <div className={styles.logo} id="logo">
           <Link to="/">
-            <img src={logo} alt="logo" />
+            {/* <img src={logo} alt="logo" /> */}
             <h1>{title}</h1>
           </Link>
         </div>

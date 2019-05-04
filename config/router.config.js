@@ -117,32 +117,32 @@ export default [
           }
         ],
       },
-      {
-        path: '/profile',
-        name: 'profile',
-        icon: 'profile',
-        component: './Profile/BasicProfile',
-        // routes: [
-        //   // profile
-        //   {
-        //     path: '/profile/basic',
-        //     name: 'basic',
-        //     component: './Profile/BasicProfile',
-        //   },
-        //   {
-        //     path: '/profile/basic/:id',
-        //     name: 'basic',
-        //     hideInMenu: true,
-        //     component: './Profile/BasicProfile',
-        //   },
-        //   {
-        //     path: '/profile/advanced',
-        //     name: 'advanced',
-        //     authority: ['admin'],
-        //     component: './Profile/AdvancedProfile',
-        //   },
-        // ],
-      },
+      // {
+      //   path: '/profile',
+      //   name: 'profile',
+      //   icon: 'profile',
+      //   component: './Profile/BasicProfile',
+      //   // routes: [
+      //   //   // profile
+      //   //   {
+      //   //     path: '/profile/basic',
+      //   //     name: 'basic',
+      //   //     component: './Profile/BasicProfile',
+      //   //   },
+      //   //   {
+      //   //     path: '/profile/basic/:id',
+      //   //     name: 'basic',
+      //   //     hideInMenu: true,
+      //   //     component: './Profile/BasicProfile',
+      //   //   },
+      //   //   {
+      //   //     path: '/profile/advanced',
+      //   //     name: 'advanced',
+      //   //     authority: ['admin'],
+      //   //     component: './Profile/AdvancedProfile',
+      //   //   },
+      //   // ],
+      // },
       // {
       //   name: 'result',
       //   icon: 'check-circle-o',
